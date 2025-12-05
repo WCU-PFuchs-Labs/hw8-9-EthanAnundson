@@ -31,7 +31,7 @@ public class GPTree implements Collector {
     }
     public boolean equals(Object o){
         if (o == null) { return false;}
-        if (o !(instanceof GPTree)){ return false;}
+        if ((o (instanceof GPTree)== false){ return false;}
         if (compareTo((GPTree)o) == 0){ return true;}
         else { return false;}
     }
