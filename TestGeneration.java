@@ -21,7 +21,7 @@ public class TestGeneration {
         gen.evalAll();
 
         // Print best GPTree
-        System.out.println("\n===== BEST TREE =====");
+        System.out.println("===== BEST TREE =====");
         gen.printBestTree();
         gen.printBestFitness();
 
