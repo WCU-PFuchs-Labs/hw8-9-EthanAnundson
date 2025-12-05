@@ -40,4 +40,20 @@ public class TestGeneration {
      *
      * Exactly two decimal places, comma-separated.
      */
-    private static void printTopTenFitness(ArrayList<GPTree>
+    private static void printTopTenFitness(ArrayList<GPTree> top) {
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < top.size(); i++) {
+            double fit = top.get(i).getFitness();
+
+            // Format: exactly two decimals
+            sb.append(String.format("%.2f", fit));
+
+            if (i < top.size() - 1)
+                sb.append(", ");
+        }
+
+        System.out.println(sb.toString());
+    }
+}
