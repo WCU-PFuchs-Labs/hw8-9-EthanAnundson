@@ -45,13 +45,15 @@ public class Node{
     }
 
     public String toString() {
-        if (isLeaf()) {
+    if (isLeaf()) {
         return operation.toString().trim();
-        } else {
-        return "(" + (left != null ? left.toString() : "?") +
-               "" + operation + "" +
-               (right != null ? right.toString() : "?") + ")";
-        }
+    } else {
+        return "(" 
+                + (left != null ? left.toString() : "?") 
+                + " " + operation + " " 
+                + (right != null ? right.toString() : "?") 
+                + ")";
+    }
     }
     public void addRandomKids(NodeFactory nf, int maxDepth, Random rand) {
       if (this.depth == maxDepth) {
