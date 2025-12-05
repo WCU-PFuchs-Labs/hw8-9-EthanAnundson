@@ -29,6 +29,7 @@ public class GPTree implements Collector {
         if (fitness < t.getFitness()){ return -1;}
         if (fitness == t.getFitness()){ return 0;}
         if (fitness > t.getFitness()){ return 1;}
+        else {return 15;}
     }
     public boolean equals(Object o){
         if (o == null) { return false;}
