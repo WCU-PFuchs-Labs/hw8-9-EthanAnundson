@@ -11,7 +11,7 @@ public class Generation{
     rand = new Random();
     population = new GPTree[size];
     Binop[] ops = {new Plus(), new Minus(), new Mult(), new Divide()};
-    NodeFactory box = new NodeFactory(ops, set.getNumIndepVars());
+    NodeFactory box = new NodeFactory(ops, set.getNumIndependentVariables());
     for (int i = 0; i<= size-1; i++){
       population[i] = new GPTree(box, maxDepth, rand);  
     }
