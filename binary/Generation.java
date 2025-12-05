@@ -25,22 +25,22 @@ public class Generation{
   public ArrayList<GPTree> getTopTen(){
     ArrayList<GPTree> list = new ArrayList<>();
     for (int r = 0; r < 10; r++){
-      list.add(population[size+r-11]);
+      list.add(population[population.length+r-11]);
     }
     return list;
   }
   public void printBestFitness(){
-    System.out.println(""+population[size-1].getFitness());
+    System.out.println(""+population[population.length-1].getFitness());
   }
   public void printBestTree(){
-    System.out.println(population[size-1].toString());
+    System.out.println(population[population.length-1].toString());
   }
   public void evolve(){
     for (int i = 0; i < population.length; i += 2) {
       int a = rand.nextInt(population.length/2 -1) + population.length/2;
       int b = rand.nextInt(population.length/2 -1) + population.length/2;
-      GPTree first = population[a].clone();
-      GPTree second = population[b].clone();
+      GPTree first = (GPTree)population[a].clone();
+      GPTree second = (GPTree)population[b].clone();
       GPTree[] newPop = GPTree[population.length];
 
             first.crossover(second, rand);
