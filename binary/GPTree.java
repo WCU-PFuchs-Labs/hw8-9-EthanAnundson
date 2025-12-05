@@ -35,8 +35,16 @@ public class GPTree implements Collector {
         if (compareTo((GPTree)o) == 0){ return true;}
         else { return false;}
     }
-    public Object clone(){
-        
+    public Object clone() {
+        Object g = null;
+        Object r = null;
+        try {
+            l =  super.clone();
+            r = super.clone();
+        }
+        catch(CloneNotSupportedException e) {
+            System.out.println("Op can't clone.");
+        }
     }
     
     
