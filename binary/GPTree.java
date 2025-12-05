@@ -15,6 +15,9 @@ public class GPTree implements Collector {
         crossNodes.add(node);
         } 
     }
+    public void evalFitness(Dataset dataset){
+        
+    }
     
     
     // DO NOT EDIT code below for Homework 8. 
