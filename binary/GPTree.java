@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Random;
 public class GPTree implements Collector {
     private Node root;
+    private fitness = 0.0;
     private ArrayList<Node> crossNodes;
     
     
@@ -16,11 +17,28 @@ public class GPTree implements Collector {
         } 
     }
     public void evalFitness(DataSet dataset){
-        double fitness = 0.0;
         for(int i = 0; i<= DataSet.data.size(); i++){
-            fitness += eval(data.get(i).dependant)
+            fitness += Math.pow(eval(data.get(i).dependant)-data.get(i).independant, 2)
         }
     }
+    public double getFitness(){
+        return fitness;
+    }
+    public int compareTo(GPTree t){
+        if (fitness < t.getFitness()){ return -1;}
+        if (fitness == t.getFitness(){ return 0;}
+        if (fitness > t.getFitness()){ return 1;}
+    }
+    public boolean equals(Object o){
+        if (o == null) { return false;}
+        if (o !instanceof GPTree){ return false;}
+        if (compareTo((GPTree)o) == 0){ return true;}
+        else { return false;}
+    }
+    public Object clone(){
+        
+    }
+    
     
     
     // DO NOT EDIT code below for Homework 8. 
