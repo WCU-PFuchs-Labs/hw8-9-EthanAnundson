@@ -46,7 +46,7 @@ public class Node{
 
     public String toString() {
         if (isLeaf()) {
-        return operation.toString();
+        return operation.toString().trim();
         } else {
         return "(" + (left != null ? left.toString() : "?") +
                " " + operation + " " +
