@@ -17,7 +17,7 @@ public class Generation{
     }
   }
   public void evalAll(){
-    for (int p = 0; p<= population.length; p++){
+    for (int p = 0; p< population.length; p++){
       population[p].evalFitness(set);
     }
     Arrays.sort(population);
