@@ -49,7 +49,7 @@ public class Node{
         return operation.toString().trim();
         } else {
         return "(" + (left != null ? left.toString() : "?") +
-               " " + operation + " " +
+               "" + operation + "" +
                (right != null ? right.toString() : "?") + ")";
         }
     }
