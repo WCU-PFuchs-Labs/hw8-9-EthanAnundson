@@ -18,7 +18,7 @@ public class GPTree implements Collector {
     }
     public void evalFitness(DataSet dataset){
         for(int i = 0; i<= dataset.data.size(); i++){
-            fitness += Math.pow(eval(data.get(i).dependant)-data.get(i).independant, 2);
+            fitness += Math.pow(eval(dataset.data.get(i).dependant)-dataset.data.get(i).independant, 2);
         }
     }
     public double getFitness(){
