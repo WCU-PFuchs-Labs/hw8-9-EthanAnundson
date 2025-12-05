@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import binary.*;
 
 public class TestGeneration {
 
