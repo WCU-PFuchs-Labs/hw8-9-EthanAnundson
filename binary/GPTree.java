@@ -36,14 +36,15 @@ public class GPTree implements Collector {
         else { return false;}
     }
     public Object clone() {
-        Object g = null;
-        Object r = null;
         try {
-            l =  super.clone();
-            r = super.clone();
-        }
-        catch(CloneNotSupportedException e) {
-            System.out.println("Op can't clone.");
+            GPTree cloned = (GPTree) super.clone();
+            if (this.root != null) {
+                cloned.root = (Node) this.root.clone();
+            }
+            return cloned;
+
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Clone failed for GPTree", e);
         }
     }
     
