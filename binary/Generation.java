@@ -25,7 +25,7 @@ public class Generation{
   public ArrayList<GPTree> getTopTen(){
     ArrayList<GPTree> list = new ArrayList<>();
     for (int r = 0; r < 10; r++){
-      list.add(population[size+r-11];
+      list.add(population[size+r-11]);
     }
     return list;
   }
