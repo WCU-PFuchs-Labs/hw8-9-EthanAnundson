@@ -7,7 +7,7 @@ public class TestGeneration {
     public static void main(String[] args) {
 
         Scanner kb = new Scanner(System.in);
-        System.out.print("Enter data file name: ");
+        //System.out.print("Enter data file name: ");
         String fileName = kb.nextLine();
 
         // Number of trees and depth (you can change depth for debugging)
