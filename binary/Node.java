@@ -28,20 +28,13 @@ public class Node{
         return operation;
     }
     public double eval(double[] values) {
-        if (operation instanceof Unop) {
-              double evaluate = ((Unop)operation).eval(values);
-              DecimalFormat df = new DecimalFormat("0.00");
-              String formattedValue = df.format(evaluate);
-              return Double.parseDouble(formattedValue);
-        } else if (operation instanceof Binop) {
-              double evaluate = ((Binop)operation).eval(left.eval(values),right.eval(values));
-              DecimalFormat df = new DecimalFormat("0.00");
-              String formattedValue = df.format(evaluate);
-              return Double.parseDouble(formattedValue);
-        } else {
-              System.err.println("Error operation is not a Unop or a Binop!");
-              return 0.0;
-        }
+    if (operation instanceof Unop) {
+        return ((Unop) operation).eval(values);
+    } else if (operation instanceof Binop) {
+        return ((Binop) operation).eval(left.eval(values), right.eval(values));
+    } else {
+        return 0.0;
+    }
     }
 
     public String toString() {
