@@ -15,8 +15,10 @@ public class GPTree implements Collector {
         crossNodes.add(node);
         } 
     }
-    public void evalFitness(Dataset dataset){
-        
+    public void evalFitness(DataSet dataset){
+        for(int i = 0; i<= DataSet.data.size(); i++){
+            eval(data.get(i).dependant);
+        }
     }
     
     
