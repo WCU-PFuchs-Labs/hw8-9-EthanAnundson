@@ -29,7 +29,7 @@ public class TestGeneration {
         ArrayList<GPTree> topTen = gen.getTopTen();
 
         // Print formatted fitness values
-        System.out.println("\nTop Ten Fitness Values:");
+        System.out.println("Top Ten Fitness Values:");
         printTopTenFitness(topTen);
     }
 
