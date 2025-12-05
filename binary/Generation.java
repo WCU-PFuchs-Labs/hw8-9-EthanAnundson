@@ -1,16 +1,18 @@
 package binary;
-import java.util.Random;
+import java.util.*;
 
 public class Generation{
   private GPTree[] population;
+  private DataSet set;
+  private Random rand;
   
   public Generation(int size, int maxDepth, String fileName){
-    DataSet set = new DataSet(fileName);
-    Random rand = new Random();
+    set = new DataSet(fileName);
+    rand = new Random();
     population = new GPTree[size];
     Binop[] ops = {new Plus(), new Minus(), new Mult(), new Divide()};
     NodeFactory box = new NodeFactory(ops, set.getNumIndepVars());
-    for (int i = 0; i<= size; i++){
+    for (int i = 0; i<= size-1; i++){
       population[i] = new GPTree(box, maxDepth, rand);  
     }
   }
@@ -22,7 +24,7 @@ public class Generation{
   }
   public ArrayList<GPTree> getTopTen(){
     ArrayList<GPTree> list = new ArrayList<>();
-    for (int r = 0; r <= 10; r++){
+    for (int r = 0; r < 10; r++){
       list.add(population[size+r-11];
     }
     return list;
@@ -39,6 +41,7 @@ public class Generation{
       int b = rand.nextInt(population.length/2 -1) + population.length/2;
       GPTree first = population[a].clone();
       GPTree second = population[b].clone();
+      GPTree[] newPop = GPTree[population.length];
 
             first.crossover(second, rand);
 
