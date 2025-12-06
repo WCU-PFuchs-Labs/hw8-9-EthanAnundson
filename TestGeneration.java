@@ -55,6 +55,6 @@ public class TestGeneration {
                 sb.append(", ");
         }
 
-        System.out.println(sb.toString());
+        System.out.print(sb.toString());
     }
 }
