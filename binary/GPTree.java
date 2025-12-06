@@ -38,10 +38,10 @@ public class GPTree implements Collector, Comparable<GPTree> {
         else { return false;}
     }
     public Object clone() {
-        object l = null;
+        Object l = null;
         try{
             l = super.clone();
-            root.clone()
+            root.clone();
         }
         catch(CloneNotSupportedException e){
             System.out.println("Op didnt clone");
