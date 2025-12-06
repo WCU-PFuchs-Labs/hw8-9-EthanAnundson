@@ -40,11 +40,12 @@ public class GPTree implements Collector, Comparable<GPTree>, Cloneable {
     public GPTree clone() {
     GPTree cloned = new GPTree();
     if (this.root != null) {
-        cloned.root = this.root.clone();
+        cloned.root = this.root.clone(); // Node.clone() now returns Node, no cast needed
     }
     cloned.fitness = this.fitness;
     return cloned;
     }
+
     
     
     
