@@ -6,5 +6,12 @@ public class TestGP {
         Scanner sc = new Scanner(System.in);
         System.out.println("Whats your file name: ");
         String filename = sc.next();
+        Generation gen = new Generation(500, 4, filename);
+        for(int i = 0; i<50; i++){
+            gen.evolve();
+            System.out.println("Generation "+i+": ");
+            gen.printBestTree();
+            gen.printBestFitness();
+        }
     }
 }
