@@ -7,7 +7,7 @@ public class TestGP {
         //System.out.println("Whats your file name: ");
         String filename = sc.next();
         Generation gen = new Generation(500, 4, filename);
-        for(int i = 1; i<50; i++){
+        for(int i = 1; i<=50; i++){
             gen.evolve();
             System.out.println("Generation "+i+": ");
             gen.printBestTree();
