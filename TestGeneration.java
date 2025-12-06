@@ -23,7 +23,9 @@ public class TestGeneration {
         // Print best GPTree
         //System.out.println("===== BEST TREE =====");
         gen.printBestTree();
+        System.out.println("");
         gen.printBestFitness();
+        System.out.println("");
 
         // Get top 10 trees
         ArrayList<GPTree> topTen = gen.getTopTen();
