@@ -37,17 +37,13 @@ public class GPTree implements Collector, Comparable<GPTree>, Cloneable {
         if (compareTo((GPTree)o) == 0){ return true;}
         else { return false;}
     }
-    public Object clone() {
-        try {
-            GPTree cloned = (GPTree) super.clone();
-            if (this.root != null) {
-                cloned.root = (Node) this.root.clone();
-            }
-            return cloned;
-
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException("Clone failed for GPTree", e);
-        }
+    public GPTree clone() {
+    GPTree cloned = new GPTree();
+    if (this.root != null) {
+        cloned.root = this.root.clone();
+    }
+    cloned.fitness = this.fitness;
+    return cloned;
     }
     
     
