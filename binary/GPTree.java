@@ -1,96 +1,137 @@
-import java.util.*;
-import binary.*; // import your GPTree, NodeFactory, DataSet, DataRow classes
-
-public class TestGP {
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Random rand = new Random();
-
-        // Prompt for data file
-        System.out.print("Enter data file name: ");
-        String dataFile = scanner.nextLine();
-
-        // Load dataset
-        DataSet dataset = new DataSet(dataFile); // assumes DataSet constructor reads CSV
-
-        // Initialize population
-        int populationSize = 500;
-        int maxDepth = 5; // example max tree depth
-        NodeFactory nodeFactory = new NodeFactory(); // assumes this exists
-        GPTree[] population = new GPTree[populationSize];
-
-        for (int i = 0; i < populationSize; i++) {
-            population[i] = new GPTree(nodeFactory, maxDepth, rand);
-        }
-
-        int generations = 50;
-        for (int gen = 1; gen <= generations; gen++) {
-            // Evaluate fitness
-            for (GPTree tree : population) {
-                tree.evalFitness(dataset);
-            }
-
-            // Sort population by fitness (lowest is best)
-            Arrays.sort(population);
-
-            // Print generation info
-            System.out.println("Generation " + gen + ":");
-            System.out.println("Best Tree: " + population[0].toString());
-            System.out.printf("Best Fitness: %.2f%n", population[0].getFitness());
-
-            // Print top 10 fitness values
-            System.out.print("Top Ten Fitness Values:\n");
-            for (int i = 0; i < 10 && i < population.length; i++) {
-                System.out.printf("%.2f", population[i].getFitness());
-                if (i < 9 && i < population.length - 1) {
-                    System.out.print(", ");
-                }
-            }
-            System.out.println("\n");
-
-            // Evolve to next generation
-            population = evolvePopulation(population, nodeFactory, maxDepth, rand);
-        }
-
-        scanner.close();
-    }
-
+package binary;
+import java.util.ArrayList;
+import java.util.Random;
+public class GPTree implements Collector, Comparable<GPTree> {
+    private Node root;
+    private double fitness = 0.0;
+    private ArrayList<Node> crossNodes;
+    
+    
     /**
-     * Evolve the population using selection, crossover, and mutation.
-     * This is a simple example; you can customize your GP operators.
+     * @param - node The node to be collected.
+     * 
      */
-    public static GPTree[] evolvePopulation(GPTree[] oldPop, NodeFactory nodeFactory, int maxDepth, Random rand) {
-        int populationSize = oldPop.length;
-        GPTree[] newPop = new GPTree[populationSize];
-
-        // Tournament selection and crossover
-        for (int i = 0; i < populationSize; i++) {
-            GPTree parent1 = tournamentSelection(oldPop, rand);
-            GPTree parent2 = tournamentSelection(oldPop, rand);
-
-            GPTree child = (GPTree) parent1.clone();
-            child.crossover(parent2, rand);
-
-            // Optional: mutation can be added here
-            newPop[i] = child;
-        }
-
-        return newPop;
+    public void collect(Node node) {
+        if (node.getoperation() instanceof Binop) {
+        crossNodes.add(node);
+        } 
     }
-
-    /**
-     * Tournament selection: pick 3 random trees and return the best.
-     */
-    public static GPTree tournamentSelection(GPTree[] population, Random rand) {
-        int tournamentSize = 3;
-        GPTree best = population[rand.nextInt(population.length)];
-        for (int i = 1; i < tournamentSize; i++) {
-            GPTree contender = population[rand.nextInt(population.length)];
-            if (contender.getFitness() < best.getFitness()) {
-                best = contender;
+    public void evalFitness(DataSet dataset){
+        ArrayList<DataRow> hello = dataset.getRows();
+        for(int i = 0; i< hello.size(); i++){
+            fitness += Math.pow(eval(hello.get(i).getIndependentVariables())-hello.get(i).getDependentVariable(), 2);
+        }
+    }
+    public double getFitness(){
+        return fitness;
+    }
+    public int compareTo(GPTree t){
+        if (fitness < t.getFitness()){ return -1;}
+        if (fitness == t.getFitness()){ return 0;}
+        if (fitness > t.getFitness()){ return 1;}
+        else {return 15;}
+    }
+    public boolean equals(Object o){
+        if (o == null) { return false;}
+        if (!(o instanceof GPTree)){ return false;}
+        if (compareTo((GPTree)o) == 0){ return true;}
+        else { return false;}
+    }
+    public Object clone() {
+        try {
+            GPTree cloned = (GPTree) super.clone();
+            if (this.root != null) {
+                cloned.root = (Node) this.root.clone();
             }
+            return cloned;
+
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Clone failed for GPTree", e);
         }
-        return best;
     }
+    
+    
+    
+    // DO NOT EDIT code below for Homework 8. 
+    // If you are doing the challenge mentioned in 
+    // the comments above the crossover method
+    // then you should create a second crossover
+    // method above this comment with a slightly 
+    // different name that handles all types
+    // of crossover.
+    
+    
+    /**
+     * This initializes the crossNodes field and
+     * calls the root Node's traverse method on this
+     * so that this can collect the Binop Nodes.
+     */
+    public void traverse() {
+        crossNodes = new ArrayList<Node>();
+        root.traverse(this);
+    }
+    
+    /**
+     * This returns a String with all of the binop Strings
+     * separated by semicolons
+     */
+    public String getCrossNodes() {
+        if (crossNodes.isEmpty()) return "";
+        StringBuilder string = new StringBuilder();
+        int lastIndex = crossNodes.size() - 1;
+        for(int i = 0; i < lastIndex; ++i) {
+            Node node = crossNodes.get(i);
+            string.append(node.toString());
+            string.append(";");
+        }
+        string.append(crossNodes.get(lastIndex));
+        return string.toString();
+    }
+   
+    
+    /**
+     * this implements left child to left child
+     * and right child to right child crossover.
+     * Challenge: additionally implement left to 
+     * right child and right to left child crossover.
+     */
+    public void crossover(GPTree tree, Random rand) {
+        // find the points for crossover
+        this.traverse();
+        tree.traverse();
+        int thisPoint = rand.nextInt(this.crossNodes.size());
+        int treePoint = rand.nextInt(tree.crossNodes.size());
+        boolean left = rand.nextBoolean();
+        // get the connection points
+        Node thisTrunk = crossNodes.get(thisPoint);
+        Node treeTrunk = tree.crossNodes.get(treePoint);
+
+        
+        if(left) {
+            thisTrunk.swapLeft(treeTrunk);
+            
+        } else {
+            thisTrunk.swapRight(treeTrunk);
+        }
+        
+    }
+
+    GPTree() { 
+        root = null; 
+    }    
+    
+    public GPTree(NodeFactory n, int maxDepth, Random rand) {
+        root = n.getOperator(rand);
+        root.depth = 0;
+        root.addRandomKids(n, maxDepth, rand);
+    }
+    
+    public String toString() { 
+        return root.toString(); 
+    }
+    
+    public double eval(double[] data) { 
+        return root.eval(data); 
+    }
+    
 }
