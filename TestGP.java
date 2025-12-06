@@ -1,29 +1,42 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class TestGP {
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        Scanner kb = new Scanner(System.in);
-
+        // Prompt user for data file
         System.out.print("Enter data file name: ");
-        String fileName = kb.nextLine();
+        String dataFile = scanner.nextLine();
 
-        final int POP_SIZE = 500;
-        final int MAX_DEPTH = 5;
-        final int NUM_GENERATIONS = 50;
+        // Load the data into your GP system
+        // (Assumes you have a method like GPTree.loadData(String filename))
+        GPSystem gp = new GPSystem();
+        gp.loadData(dataFile);
 
-        // Create the initial population
-        Generation gen = new Generation(POP_SIZE, MAX_DEPTH, fileName);
+        // Create initial population of 500 trees
+        int populationSize = 500;
+        gp.initializePopulation(populationSize);
 
-        // Evaluate initial generation
-        gen.evalAll();
+        // Loop for 50 generations
+        int generations = 50;
+        for (int gen = 1; gen <= generations; gen++) {
+            // Evaluate fitness for the current population
+            gp.evaluateFitness();
 
-        // Run 50 generations
-        for (int g = 1; g <= NUM_GENERATIONS; g++) {
+            // Print the best tree and its fitness
+            GPTree bestTree = gp.getBestTree();
+            double bestFitness = bestTree.getFitness();
 
-            System.out.println("\nGeneration " + g + ":");
-            gen.printBestTree();
-            gen.printBestFitness();
+            System.out.println("Generation " + gen + ":");
+            System.out.println("Best Tree: " + bestTree);
+            System.out.printf("Best Fitness: %.2f%n", bestFitness);
+            System.out.println();
 
-            // Evolve popula
+            // Evolve to the next generation
+            gp.evolve();
+        }
+
+        scanner.close();
+    }
+}
