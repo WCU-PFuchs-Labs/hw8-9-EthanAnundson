@@ -59,7 +59,6 @@ public class Node implements Cloneable{
           return;
       }
   
-      // Otherwise, grow the left child
       int leftChoice = rand.nextInt(nf.getNumOps() + nf.getNumIndepVars());
       if (leftChoice < nf.getNumOps()) {
           left = nf.getOperator(rand);
@@ -70,7 +69,6 @@ public class Node implements Cloneable{
           left.depth = this.depth + 1;
       }
   
-      // Grow the right child
       int rightChoice = rand.nextInt(nf.getNumOps() + nf.getNumIndepVars());
       if (rightChoice < nf.getNumOps()) {
           right = nf.getOperator(rand);
