@@ -6,7 +6,7 @@ package binary;
 import java.util.Random;
 import java.text.DecimalFormat;
 
-public class Node{
+public class Node implements Cloneable{
     private Node left;
     private Node right;
     private Op operation;
