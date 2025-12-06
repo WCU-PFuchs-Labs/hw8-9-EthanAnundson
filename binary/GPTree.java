@@ -1,7 +1,7 @@
 package binary;
 import java.util.ArrayList;
 import java.util.Random;
-public class GPTree implements Collector, Comparable<GPTree>, Cloneable {
+public class GPTree implements Collector, Comparable<GPTree> {
     private Node root;
     private double fitness = 0.0;
     private ArrayList<Node> crossNodes;
