@@ -46,6 +46,7 @@ public class GPTree implements Collector, Comparable<GPTree> {
         catch(CloneNotSupportedException e){
             System.out.println("Op didnt clone");
         }
+        return l;
         
     }
 
