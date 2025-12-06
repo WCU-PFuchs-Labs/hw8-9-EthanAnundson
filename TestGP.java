@@ -12,6 +12,7 @@ public class TestGP {
             System.out.println("Generation "+i+": ");
             gen.printBestTree();
             gen.printBestFitness();
+            System.out.println("");
         }
     }
 }
