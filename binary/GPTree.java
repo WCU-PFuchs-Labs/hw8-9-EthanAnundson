@@ -46,8 +46,10 @@ public class GPTree implements Collector, Comparable<GPTree> {
         return null;
     }
 
-    // Deep clone the root (IMPORTANT)
-    copy.root = (Node) this.root.clone();
+    // deep-clone the root
+    if (this.root != null) {
+        copy.root = (Node) this.root.clone();
+    }
 
     return copy;
 }
