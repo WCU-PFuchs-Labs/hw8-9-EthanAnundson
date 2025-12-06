@@ -38,9 +38,10 @@ public class Generation{
   }
   public void evolve(){
     GPTree[] newPop = new GPTree[population.length];
+    int half = population.length/2;
     for (int i = 0; i < population.length; i += 2) {
-      int a = rand.nextInt(population.length/2 -1) + population.length/2;
-      int b = rand.nextInt(population.length/2 -1) + population.length/2;
+      int a = rand.nextInt(half)+half;
+      int b = rand.nextInt(half)+half;
       GPTree first = (GPTree)population[a].clone();
       GPTree second = (GPTree)population[b].clone();
 
