@@ -12,10 +12,10 @@ public class TestGP {
         DataSet dataset = new DataSet(dataFile);
 
         // Get number of independent variables from dataset
-        int numVars = dataset.getNumIndepVars();
+        int numVars = dataset.getNumIndependentVariables();
 
         // Create Binop array
-        Binop[] operators = new Binop[]{ new Add(), new Sub(), new Mul(), new Div() };
+        Binop[] operators = new Binop[]{ new Plus(), new Minus(), new Mult(), new Divide() };
 
         // Create NodeFactory with operators and number of independent variables
         NodeFactory nodeFactory = new NodeFactory(operators, numVars);
