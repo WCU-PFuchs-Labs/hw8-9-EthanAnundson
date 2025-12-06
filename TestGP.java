@@ -1,5 +1,5 @@
 import java.util.*;
-import binary.*; // GPTree, NodeFactory, DataSet, etc.
+import binary.*; // GPTree, NodeFactory, DataSet, Binop, etc.
 
 public class TestGP {
     public static void main(String[] args) {
@@ -11,13 +11,13 @@ public class TestGP {
 
         DataSet dataset = new DataSet(dataFile);
 
-        // Get number of independent variables from dataset
+        // Number of independent variables
         int numVars = dataset.getNumIndependentVariables();
 
-        // Create Binop array
+        // Operators for GP
         Binop[] operators = new Binop[]{ new Plus(), new Minus(), new Mult(), new Divide() };
 
-        // Create NodeFactory with operators and number of independent variables
+        // NodeFactory to generate nodes
         NodeFactory nodeFactory = new NodeFactory(operators, numVars);
 
         int populationSize = 500;
@@ -30,13 +30,17 @@ public class TestGP {
         }
 
         int generations = 50;
+
         for (int gen = 1; gen <= generations; gen++) {
+            // Evaluate fitness
             for (GPTree tree : population) {
                 tree.evalFitness(dataset);
             }
 
+            // Sort population by fitness (lower is better)
             Arrays.sort(population);
 
+            // Print generation info
             System.out.println("Generation " + gen + ":");
             System.out.println("Best Tree: " + population[0]);
             System.out.printf("Best Fitness: %.2f%n", population[0].getFitness());
@@ -55,7 +59,7 @@ public class TestGP {
         scanner.close();
     }
 
-    // Tournament selection + crossover
+    // Evolve population using tournament selection + crossover
     public static GPTree[] evolvePopulation(GPTree[] oldPop, NodeFactory nodeFactory, int maxDepth, Random rand) {
         int populationSize = oldPop.length;
         GPTree[] newPop = new GPTree[populationSize];
@@ -64,7 +68,8 @@ public class TestGP {
             GPTree parent1 = tournamentSelection(oldPop, rand);
             GPTree parent2 = tournamentSelection(oldPop, rand);
 
-            GPTree child = (GPTree) parent1.clone();
+            // Use copy constructor instead of clone
+            GPTree child = new GPTree(parent1);
             child.crossover(parent2, rand);
 
             newPop[i] = child;
@@ -73,7 +78,7 @@ public class TestGP {
         return newPop;
     }
 
-    // Tournament selection
+    // Tournament selection (lower fitness wins)
     public static GPTree tournamentSelection(GPTree[] population, Random rand) {
         int tournamentSize = 3;
         GPTree best = population[rand.nextInt(population.length)];
