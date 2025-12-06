@@ -30,11 +30,11 @@ public class Generation{
     return list;
   }
   public void printBestFitness(){
-    double best = population[population.length-1].getFitness();
+    double best = population[0].getFitness();
     System.out.print(""+best);
   }
   public void printBestTree(){
-    System.out.print(population[population.length-1].toString());
+    System.out.print(population[0].toString());
   }
   public void evolve(){
     GPTree[] newPop = new GPTree[population.length];
