@@ -39,17 +39,14 @@ public class GPTree implements Collector, Comparable<GPTree> {
     }
     public Object clone() {
     GPTree copy;
-
     try {
-        // 1. shallow-clone GPTree object
         copy = (GPTree) super.clone();
-    } 
-    catch (CloneNotSupportedException e) {
+    } catch (CloneNotSupportedException e) {
         System.out.println("Op didnt clone");
         return null;
     }
 
-    // 2. deep-clone the root node
+    // Deep clone the root (IMPORTANT)
     copy.root = (Node) this.root.clone();
 
     return copy;
