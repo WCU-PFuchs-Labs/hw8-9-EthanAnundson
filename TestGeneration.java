@@ -20,7 +20,7 @@ public class TestGeneration {
         ArrayList<GPTree> topTen = gen.getTopTen();
         System.out.print("Top Ten Fitness Values: ");
         for (int g = 0; g< 10; g++){
-            System.out.printf("%.2f", topTen.get(g).getFitness();
+            System.out.printf("%.2f", topTen.get(g).getFitness());
             if (g < 9) {System.out.print(", ");}
         }
     }
